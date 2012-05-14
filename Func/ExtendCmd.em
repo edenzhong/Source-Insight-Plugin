@@ -201,15 +201,15 @@ macro ExtendCmd()
 		// third line
 		helpmsg = "c : create new class and file"
 		helpmsg = cat(helpmsg,chEnter())
-		helpmsg = cat(helpmsg,"C : expand class definition"
+		helpmsg = cat(helpmsg,"C : expand class definition")
 		helpmsg = cat(helpmsg,chEnter())
 		
 		msg(helpmsg)
 
 		// special char
-		helpmsg = "\\ : word to case")
+		helpmsg = "\\ : word to case"
 		helpmsg = cat(helpmsg,chEnter())
-		helpmsg = cat(helpmsg,"<tab> : indent selection"
+		helpmsg = cat(helpmsg,"<tab> : indent selection")
 		helpmsg = cat(helpmsg,chEnter())
 		
 		msg(helpmsg)

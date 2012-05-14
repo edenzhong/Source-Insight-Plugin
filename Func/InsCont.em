@@ -135,59 +135,24 @@ macro IncludeSys()
 {
 	InsHeadNTail2Lines("#include <",">")
 }
+macro InsTemplate()
+{
+	InsHeadNTail2Lines("template <typename T",">")
+}
 macro InsSpaceAfterCursor()
 {
 	hbuf = GetCurrentBuf()
 	SetBufSelText(hbuf, " ")
 	Cursor_Left
 }
-//insert string "return "
-// 如果现在选择了文本,则在该文本前插入return 并在后面插入分号,并继续选中该文本
-// 以便可以快速地把某个文本作为返回值
 macro InsReturn()
 {
-	hwnd = GetCurrentWnd()
-	if(hnil == hwnd)
-	{
-		msg("No active window!");
-	}
-	hbuf = GetWndBuf (hwnd)
-	sel = GetWndSel (hwnd)
+	InsHeadNTail2Lines("return ",";")
+}
 
-	if(sel.fExtended)
-	{
-		ln = sel.lnLast
-		strcont = getbufline(hbuf,ln)
-		strtmp = strmid(strcont,0,sel.ichLim)
-		strtmp = cat(strtmp,";")
-
-		tmp = strmid(strcont,sel.ichLim,strlen(strcont))
-		strtmp = cat(strtmp,tmp)
-		delbufline(hbuf,ln)
-		insbufline(hbuf,ln,strtmp)
-		
-		ln = sel.lnFirst
-		strcont = getbufline(hbuf,ln)
-		strtmp = strmid(strcont,0,sel.ichFirst)
-		strtmp = cat(strtmp,"return ")
-
-		tmp = strmid(strcont,sel.ichFirst,strlen(strcont))
-		strtmp = cat(strtmp,tmp)
-		delbufline(hbuf,ln)
-		insbufline(hbuf,ln,strtmp)
-
-		sel.ichFirst = sel.ichFirst + strlen("return ")
-		if(sel.lnLast == sel.LnFirst)
-		{
-			sel.ichLim = sel.ichLim + strlen("return ")
-		}
-		SetWndSel(hwnd,sel)
-	}
-	else
-	{
-		SetBufSelText(hbuf, "return ;")
-		cursor_left
-	}
+macro InsCurlyReturn()
+{
+	InsHeadNTail2Lines("{return ",";}")
 }
 
 // Ask user for ifdef condition and wrap it around current
@@ -217,12 +182,68 @@ macro InsDefence()
 //insert multiline comment
 macro InsMulCmt()
 {
-	hbuf = GetCurrentBuf()
-	SetBufSelText(hbuf, "/**********************************************************")
-	Insert_Line_Before_Next
-	SetBufSelText(hbuf, "*	")
-	Insert_Line_Before_Next
-	SetBufSelText(hbuf, "***********************************************************/")
-	Cursor_Up
-}
+	var hwnd
+	hwnd = GetCurrentWnd()
+	if(hnil == hwnd)
+	{
+		msg("No active window!");
+	}
+	var hbuf
+	hbuf = GetWndBuf (hwnd)
+	var sel
+	sel = GetWndSel (hwnd)
 
+	var str
+
+	// get base indent
+	var base_indent
+	str = GetBufLine (hbuf, sel.lnfirst)
+	base_indent = get_pre_space(str)
+
+	var ln
+	ln = sel.lnfirst+1
+	var tmp
+	var pos
+	while(ln <= sel.lnlast )
+	{
+		str = GetBufLine (hbuf, ln)
+		tmp = get_pre_space(str)
+		pos = strcmp(base_indent,tmp)
+		if ( pos > 0 )
+		{
+			base_indent = strmid(base_indent,0,pos-1)
+		}
+		else if ( pos < 0 )
+		{
+			base_indent = strmid(base_indent,0,0-1-pos)
+		}
+		ln = ln + 1
+	}
+
+	// plus
+	var plus
+	plus = IndentSign()
+	plus = cat("*",plus)
+
+	pos = strlen(base_indent)
+
+	var new_line_content
+
+	
+	ln = sel.lnlast
+	while(ln>= sel.lnfirst)
+	{
+		str = GetBufLine (hbuf, ln)
+		tmp = strmid(str,0,pos)
+		new_line_content = cat(tmp,plus)
+		tmp = strmid(str,pos,strlen(str))
+		new_line_content = cat(new_line_content,tmp)
+		PutBufLine (hbuf, ln, new_line_content)
+
+		ln = ln - 1
+	}
+	InsBufLine (hbuf, sel.lnlast+1, base_indent # "***********************************************************/")
+	InsBufLine (hbuf, sel.lnfirst, base_indent # "/***********************************************************")
+	Cursor_down
+	end_of_line
+}

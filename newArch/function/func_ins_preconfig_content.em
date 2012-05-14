@@ -1,19 +1,35 @@
 macro func_ins_preconfig_content()
 {
+	_ins_preconfig_content(0)
+}
+macro _ins_preconfig_content(flag)
+{
 	var key
 	var ch
-	key = getkey()
-	ch = CharFromKey(key)
+	if ( 0 == flag )
+	{
+		key = getkey()
+		ch = CharFromKey(key)
+	}
+	else
+	{
+		ch = flag
+	}
 
 	var hbuf
 	hbuf = GetCurrentBuf()
 
 	
 	// first line
-	// insert "to do"
+	// to do
 	if ( "t" == ch )
 	{
 		InsToDo()
+	}
+	// template <typename T>
+	else if ( "T" == ch )
+	{
+		InsTemplate()
 	}
 	// insert multi line comment
 	else if ( "p" == ch )
@@ -44,7 +60,7 @@ macro func_ins_preconfig_content()
 		var helpmsg
 		helpmsg = "t : to do"
 		helpmsg = cat(helpmsg,chEnter())
-		helpmsg = cat(helpmsg,"p : multi line comment")
+		helpmsg = cat(helpmsg,"T : template <typename T>")
 		helpmsg = cat(helpmsg,chEnter())
 		helpmsg = cat(helpmsg,"p : multi line comment")
 		msg(helpmsg)
