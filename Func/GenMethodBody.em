@@ -38,6 +38,10 @@ macro GenMethodBody()
 		}
 		func = ""
 		parent = SymbolParent(symb)
+		if ( parent == "" )
+		{
+			msg("Could not find the parent of:" #symb)
+		}
 		parentname = SymbolLeafName(parent)
 
 		// get current

@@ -56,7 +56,7 @@ macro ExtendCmd()
 	// generate unit test class
 	else if ( "T" == ch )
 	{
-		GenUnitTestClass()
+		ui_gen_class_unit_test()
 	}
 	// switch windows between c & h file
 	else if ( "y" == ch )
