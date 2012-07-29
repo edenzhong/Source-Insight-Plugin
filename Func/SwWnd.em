@@ -34,6 +34,29 @@ macro ActSpecFile(opfl)
 		SetCurrentWnd(hwnd)
 		return 1
 	}
+	else
+	{
+		// check if the file not in project, but it is opened in cache.
+		var cwnd
+		cwnd = WndListCount ()
+		var iwnd
+		iwnd = 0
+		while (iwnd < cwnd)
+		{
+			hwnd = WndListItem(iwnd)
+			var hbuf
+			hbuf = GetWndBuf (hwnd)
+			var filename
+			filename = GetBufName (hbuf)
+			filename = GetFileNameFromFullPath(filename)
+			if ( opfl == filename)
+			{
+				SetCurrentWnd(hwnd)
+				return 1;
+			}
+			iwnd = iwnd + 1
+		}
+	}
 	return 0
 }
 
