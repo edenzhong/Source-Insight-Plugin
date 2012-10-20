@@ -129,11 +129,25 @@ macro Null()
 //insert string "#include "
 macro Include()
 {
-	InsHeadNTail2Lines("#include \"",".h\"")
+	if ( "python" == GetCurFileType() )
+	{
+		InsHeadNTail2Lines("import ","")
+	}
+	else
+	{
+		InsHeadNTail2Lines("#include \"",".h\"")
+	}
 }
 macro IncludeSys()
 {
-	InsHeadNTail2Lines("#include <",">")
+	if ( "python" == GetCurFileType() )
+	{
+		InsHeadNTail2Lines("import ","")
+	}
+	else
+	{
+		InsHeadNTail2Lines("#include <",">")
+	}
 }
 macro InsTemplate()
 {

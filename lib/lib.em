@@ -89,90 +89,19 @@ macro GetFileHandle(filename)
 	}
 	return hnil;
 }
-/*macro GetFileHandle(filename)
-{
-	var cnt;
-	var i;
-	var hbuf;
-	var tbufname;
-	var pos;
-	var hprj;
-	var fullpathmode;
-	var prjdir;
 
-	if ( -1 != FindStrR(filename,"\\") )
+macro GetCurFileType()
+{
+	hbuf = GetCurrentBuf()
+	name = GetBufName (hbuf)
+	extname = GetExtNameFromFileName(name)
+	if ( "py" == extname )
 	{
-		fullpathmode = 1
+		return "python";
 	}
 	else
 	{
-		fullpathmode = 0
+		return "unknow";
 	}
-	
-	filename = tolower (filename)
-	hprj = GetCurrentProj ()
-	prjdir = GetProjDir (hprj);
-	prjdir = cat(prjdir,"\\");
-	
-	if ( !hprj )
-	{
-		return hnil;
-	}
+}
 
-	cnt = GetProjFileCount (hprj);
-	i = 0;
-
-	var cmp;
-	var first;
-	var lim;
-	first = 0;
-	lim = GetProjFileCount (hprj);
-	i = (lim - first)/2;
-	while(1)
-	{
-		// get the file name
-		tbufname = GetProjFileName (hprj, i);
-		if ( !fullpathmode )
-		{
-			tbufname = GetFileNameFromFullPath(tbufname)
-		}
-		else
-		{
-			tbufname = cat(prjdir,tbufname)
-		}
-
-		tbufname  = tolower (tbufname );
-		cmp = strcmp(tbufname,filename);
-		if ( cmp < 0 ) // tbufname < filename
-		{
-			if ( first == i )
-			{
-				break;
-			}
-			first = i;
-		}
-		else if ( cmp > 0 ) // tbufname > filename
-		{
-			if ( lim == i )
-			{
-				break;
-			}
-			lim = i;
-		}
-		else // tbufname == filename
-		{
-			tbufname = GetProjFileName (hprj, i);
-			hbuf = OpenBuf(tbufname)
-			return hbuf;
-		}
-
-		// not found
-		if ( first >= lim )
-		{
-			break;
-		}
-		i = (lim - first)/2
-		i = i + first
-	}
-	return hnil;
-}*/

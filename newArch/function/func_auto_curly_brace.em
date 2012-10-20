@@ -1,4 +1,26 @@
-macro func_auto_curly_brace()
+macro python_auto_curly_brace()
+{
+	hbuf = GetCurrentBuf ()
+
+	// if the last char is not a ":", plus a ":"
+	curln = GetBufLnCur (hbuf)
+	cont = GetBufLine (hbuf, curln)
+	cont = purge_string(cont)
+	len = strlen(cont)
+	if ( len > 0 )
+	{
+		last_ch = cont[len-1]
+		if ( ":" != last_ch )
+		{
+			end_of_line
+			SetBufSelText (hbuf,":")
+		}
+	}
+	InsertLineAfterCur()
+	end_of_line
+	SetBufSelText(hbuf,IndentSign())
+}
+macro default_auto_curly_brace()
 {
   var hwnd
   hwnd = GetCurrentWnd()
@@ -165,4 +187,16 @@ macro insert_curly_in_coming_line(hbuf,ln,indent,plusIndent,tail)
   {
 	  InsBufLine(hbuf, ln + 3, "@indent@" # "}");
   }
+}
+
+macro func_auto_curly_brace()
+{
+	if ( "python" == GetCurFileType() )
+	{
+		python_auto_curly_brace()
+	}
+	else
+	{
+		default_auto_curly_brace()
+	}
 }
