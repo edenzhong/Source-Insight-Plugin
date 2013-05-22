@@ -12,6 +12,10 @@ macro IndentSign()
 	{
 		return "  ";
 	}
+	else if ("cs" == ext)
+	{
+		return "    ";
+	}
 	else
 	{
 		return "	"

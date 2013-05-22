@@ -640,3 +640,56 @@ macro purge_string(str)
   }
   return purge;
 }
+
+// split a string to several part by a set of chars.
+// str : the string to be splited.
+// set : a set of chars witch to be use as a delim
+// return : a buf contains part. each part in one line
+macro split_by_set(str,set,incl_delim,bufname)
+{
+	if ( nil == bufname )
+	{
+		bufname = "split_buf"
+	}
+	var split_buf
+	split_buf = newbuf(bufname)
+	if ( hnil != split_buf )
+	{
+		while ( strlen(str) > 0 )
+		{
+			var idx
+			idx = FindOneOf(str,set)
+			if ( idx < 0 )
+			{
+				// finish
+				AppendBufLine (split_buf, str)
+				break;
+			}
+			 
+			if ( 0 == idx )
+			{
+				if ( FindOneOf(incl_delim,str[idx]) >= 0 )
+				{
+					AppendBufLine (split_buf, str[0])
+				}
+				str = strmid(str,1,strlen(str))
+			}
+			else // idx > 0
+			{
+				var tmp
+				tmp = strmid ( str, 0, idx )
+				AppendBufLine (split_buf, tmp)
+				if ( FindOneOf(incl_delim,str[idx]) >= 0 )
+				{
+					AppendBufLine (split_buf, str[idx])
+				}
+				str = strmid(str,idx+1,strlen(str))
+			}
+		}
+	}
+	return split_buf
+}
+macro free_split_buf(hbuf)
+{
+	CloseBuf(hbuf)
+}

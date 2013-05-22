@@ -132,6 +132,11 @@ macro ExtendCmd()
 	{
 		ExpandClass()
 	}
+	// create a mock class for the selected class
+	else if ( "m" == ch )
+	{
+		ui_mk_mock_class()
+	}
 	
 
 	///////////////////////////////////////////////////////
@@ -202,6 +207,8 @@ macro ExtendCmd()
 		helpmsg = "c : create new class and file"
 		helpmsg = cat(helpmsg,chEnter())
 		helpmsg = cat(helpmsg,"C : expand class definition")
+		helpmsg = cat(helpmsg,chEnter())
+		helpmsg = cat(helpmsg,"m : create a mock class for the selected class")
 		helpmsg = cat(helpmsg,chEnter())
 		
 		msg(helpmsg)

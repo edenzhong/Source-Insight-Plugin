@@ -18,7 +18,8 @@ macro MovCursorToSmartBegin()
 
 macro MovCursorToSmartEnd()
 {
-	var hbuf
+	End_Of_Line
+	/* var hbuf
 	var ln
 	var len
 	hbuf = GetCurrentBuf()
@@ -29,5 +30,5 @@ macro MovCursorToSmartEnd()
 	{
 		Beginning_of_Line
 		Smart_End_Of_Line
-	}
+	} */
 }
