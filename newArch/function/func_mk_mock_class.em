@@ -35,40 +35,44 @@ macro func_mk_mock_class()
 			func_inf = get_func_info(childsym)
 			if ( nil != func_inf)
 			{
-				var arg_cnt
-				arg_cnt = get_arg_cnt(func_inf) 
-				
-				var mock_func
-				// to do // check if it is "const" function
-				mock_func = cat("  MOCK_METHOD",arg_cnt)
-				mock_func = cat(mock_func,"(")
-				mock_func = cat(mock_func,func_inf.name)
-				mock_func = cat(mock_func,",")
-				mock_func = cat(mock_func,func_inf.return_type)
-				mock_func = cat(mock_func,"(")
-
-				
-				var arg_type
-				var arg_name
-				var arg_idx
-				arg_idx = 0
-				while( arg_idx < arg_cnt)
+				tmp = func_inf.name
+				if ( "~" != tmp[0] )
 				{
-					arg_type = getbufline(func_inf.arg_type_buf,arg_idx)
-					arg_name = getbufline(func_inf.arg_name_buf,arg_idx)
-
-					if ( arg_idx > 0 )
+					var arg_cnt
+					arg_cnt = get_arg_cnt(func_inf) 
+					
+					var mock_func
+					// to do // check if it is "const" function
+					mock_func = cat("  MOCK_METHOD",arg_cnt)
+					mock_func = cat(mock_func,"(")
+					mock_func = cat(mock_func,func_inf.name)
+					mock_func = cat(mock_func,",")
+					mock_func = cat(mock_func,func_inf.return_type)
+					mock_func = cat(mock_func,"(")
+	
+					
+					var arg_type
+					var arg_name
+					var arg_idx
+					arg_idx = 0
+					while( arg_idx < arg_cnt)
 					{
-						mock_func = cat(mock_func,",")
+						arg_type = getbufline(func_inf.arg_type_buf,arg_idx)
+						arg_name = getbufline(func_inf.arg_name_buf,arg_idx)
+	
+						if ( arg_idx > 0 )
+						{
+							mock_func = cat(mock_func,",")
+						}
+						mock_func = cat(mock_func,arg_type)
+						mock_func = cat(mock_func," ") 
+						mock_func = cat(mock_func,arg_name) 
+						arg_idx = arg_idx + 1
 					}
-					mock_func = cat(mock_func,arg_type)
-					mock_func = cat(mock_func," ") 
-					mock_func = cat(mock_func,arg_name) 
-					arg_idx = arg_idx + 1
+					mock_func = cat(mock_func,"));")
+					AppendBufLine(mock_file,mock_func)
 				}
 				free_func_inf(func_inf)
-				mock_func = cat(mock_func,"));")
-				AppendBufLine(mock_file,mock_func)
 			}
 			
 			ichild = ichild + 1
@@ -83,7 +87,7 @@ macro func_mk_mock_class()
 macro start_mock_buf(class_name)
 {
 	var mock_buf
-	mock_buf = newbuf(class_name # ".h")
+	mock_buf = newbuf("Mock" # class_name # ".h")
 
 	AppendBufLine(mock_buf,"#ifndef _Mock" # class_name # "_h_")
 	AppendBufLine(mock_buf,"#define _Mock" # class_name # "_h_")

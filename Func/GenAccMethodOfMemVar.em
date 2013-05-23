@@ -28,14 +28,21 @@ macro GenAccMethodOfMemVar()
 		memvar = GetWordInAStringByIdxR(cont,1) 
 		var purevarname
 		purevarname = memvar
-		if ( strlen(memvar)>2)
+		var varlen
+		varlen = strlen(memvar)
+		if ( varlen>1)
 		{
-			if (( memvar[0] == "m" ) && (memvar[1] == "_" ))
+//			if (( memvar[0] == "m" ) && (memvar[1] == "_" ))
+//			{
+//				purevarname = strmid(memvar,2,strlen(memvar))
+//			}
+			
+			if ( memvar[varlen-1] == "_" )
 			{
-				purevarname = strmid(memvar,2,strlen(memvar))
+				purevarname = strmid(memvar,0,varlen -1)
 			}
 		}
-		purevarname[0] = toupper(purevarname[0])
+		//purevarname[0] = toupper(purevarname[0])
 		
 		
 		// get rest as the type name
@@ -52,7 +59,7 @@ macro GenAccMethodOfMemVar()
 		
 		// gen public: inline void Setxxx
 		var SetMethod
-		SetMethod = cat("inline void Set" ,purevarname)
+		SetMethod = cat("inline void set_" ,purevarname)
 		SetMethod = cat(SetMethod,"(")
 		SetMethod = cat(SetMethod,typename)
 		SetMethod = cat(SetMethod," val){")
@@ -63,7 +70,7 @@ macro GenAccMethodOfMemVar()
 		// gen public: inline T Getxxx
 		var GetMethod
 		GetMethod = cat("inline ",typename)
-		GetMethod = cat(GetMethod," Get")
+		GetMethod = cat(GetMethod," get")
 		GetMethod = cat(GetMethod,purevarname)
 		GetMethod = cat(GetMethod,"()const{return ")
 		GetMethod = cat(GetMethod,memvar)

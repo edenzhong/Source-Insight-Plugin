@@ -67,8 +67,6 @@ macro get_func_info(symb)
 	}
 	if ( -1 == return_type_lim_ln )
 	{
-		msg("Not a valid function/method declare")
-		
 		free_split_buf(elements)
 		return nil;
 	}
