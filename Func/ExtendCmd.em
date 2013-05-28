@@ -116,7 +116,12 @@ macro ExtendCmd()
 	// insert current file name
 	else if ( "f" == ch )
 	{
-	  InsCurFileName()
+	  func_ins_cur_file_name()
+	}
+	// copy current file name
+	else if ( "F" == ch )
+	{
+		func_copy_cur_file_name
 	}
 	
 	///////////////////////////////////////////////////////
@@ -200,6 +205,8 @@ macro ExtendCmd()
 		helpmsg = cat(helpmsg,"A: generate method body")
 		helpmsg = cat(helpmsg,chEnter())
 		helpmsg = cat(helpmsg,"f: insert current file name")
+		helpmsg = cat(helpmsg,chEnter())
+		helpmsg = cat(helpmsg,"F: copy current file name")
 		
 		msg(helpmsg)
 

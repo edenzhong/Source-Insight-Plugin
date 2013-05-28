@@ -70,7 +70,7 @@ macro GenAccMethodOfMemVar()
 		// gen public: inline T Getxxx
 		var GetMethod
 		GetMethod = cat("inline ",typename)
-		GetMethod = cat(GetMethod," get")
+		GetMethod = cat(GetMethod," get_")
 		GetMethod = cat(GetMethod,purevarname)
 		GetMethod = cat(GetMethod,"()const{return ")
 		GetMethod = cat(GetMethod,memvar)
