@@ -54,7 +54,7 @@ macro SelToPreviousDifferentTypeChar()
 /***********************************************************
 *	move to middle
 ***********************************************************/
-macro MovToMiddleScreen()
+macro ui_mov_to_mid_win()
 {
 	var hwnd;
 	hwnd = GetCurrentWnd()
