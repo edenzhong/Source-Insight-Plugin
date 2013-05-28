@@ -1,6 +1,5 @@
-
 //insert a comment
-macro InsCmt()
+macro func_ins_c_cmt()
 {
 	hwnd = GetCurrentWnd ()
 	if(hNil == hwnd)
@@ -11,7 +10,7 @@ macro InsCmt()
 	hbuf = GetWndBuf (hwnd)
 
 	SetBufIns(hbuf, sel.lnFirst, sel.ichFirst);
-	SetBufSelText(hbuf, "/* ");
+	SetBufSelText(hbuf, "/** ");
 
 	if(sel.lnLast > sel.lnFirst)
 	{
@@ -20,7 +19,7 @@ macro InsCmt()
 	}
 	else
 	{
-		SetBufIns(hbuf, sel.lnLast, sel.ichLim+3);
+		SetBufIns(hbuf, sel.lnLast, sel.ichLim+4);
 		SetBufSelText(hbuf, " */");
 		cursor_left
 		cursor_left
@@ -29,7 +28,7 @@ macro InsCmt()
 }
 
 //clear a comment. corresponding to macro InsCmt()
-macro ClrCmt()
+macro func_clr_c_cmt()
 {
 	hwnd = GetCurrentWnd ()
 	if(hNil == hwnd)
@@ -147,4 +146,3 @@ macro ClrCmt()
 	return
 
 }
-
