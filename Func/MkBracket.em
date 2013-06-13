@@ -44,16 +44,31 @@ macro SetIncluded(first,second)
 		Cursor_Left
 	}
 }
-macro MkParenthesis()
+macro mk_wrap()
 {
-	SetIncluded("(",")")
-}
-macro MkBracket()
-{
-	SetIncluded("[","]")
-}
-macro MkQuotation()
-{
-	SetIncluded( "\"","\"")
-}
+	var key
+	var ch
+	key = getkey()
+	ch = CharFromKey(key)
 
+	if (("[" == ch ) || ("]" == ch ))
+	{
+		SetIncluded("[","]")
+	}
+	else if (("(" == ch ) || (")" == ch ))
+	{
+		SetIncluded("(",")")
+	}
+	else if (("{" == ch ) || ("}" == ch ))
+	{
+		SetIncluded("{","}")
+	}
+	else if (("<" == ch ) || (">" == ch ))
+	{
+		SetIncluded("<",">")
+	}
+	else
+	{
+		SetIncluded(ch,ch)
+	}
+}

@@ -34,7 +34,7 @@ macro func_indent_selection()
 			if ( pos >= 0 )
 			{
 				baseidt = strmid(str,0,pos)
-				str = purge_string(str)
+				str = trim(str)
 				var len
 				len = strlen(str)
 				var ch
@@ -74,7 +74,7 @@ macro func_indent_selection()
 	{
 		// indent current line.
 		str = getbufline(hbuf,ln)
-		str = purge_string(str)
+		str = trim(str)
 		if ( is_close_char(str[0]) )
 		{
 			var tmpidt

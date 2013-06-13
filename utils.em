@@ -1,6 +1,7 @@
 macro fortest()
 {
-	func_indent_selection()
+	func_ins_func_header()
+	//func_indent_selection()
 	//MovToMiddle()
 }
 

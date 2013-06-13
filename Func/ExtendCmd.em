@@ -80,7 +80,7 @@ macro ExtendCmd()
 	// func header
 	else if ( "i" == ch )
 	{
-		InsertHeader()
+		ui_ins_func_header()
 	}
 	// file header
 	else if ( "I" == ch )

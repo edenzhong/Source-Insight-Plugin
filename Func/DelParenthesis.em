@@ -160,6 +160,14 @@ macro DelParenthesis()
 			ChHead = "(";
 			ChTail = ")";
 		}
+		else
+		{
+			if(CheckHeadTail("[","]"))
+			{
+				ChHead = "[";
+				ChTail = "]";
+			}
+		}
 	}
 	if(0 != ChHead)
 	{

@@ -5,7 +5,7 @@ macro python_auto_curly_brace()
 	// if the last char is not a ":", plus a ":"
 	curln = GetBufLnCur (hbuf)
 	cont = GetBufLine (hbuf, curln)
-	cont = purge_string(cont)
+	cont = trim(cont)
 	len = strlen(cont)
 	if ( len > 0 )
 	{
@@ -71,7 +71,7 @@ macro default_auto_curly_brace()
   if ( sel.fextended )
   {
     word = strmid(szLine,sel.ichfirst,sel.ichlim)
-    word = purge_string(word)
+    word = trim(word)
   }
   else
   {

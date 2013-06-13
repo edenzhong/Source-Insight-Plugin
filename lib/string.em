@@ -596,7 +596,7 @@ macro FindNotOf(str,set)
 	return -1
 }
 // clear the prefix and suffix space/tab
-macro purge_string(str)
+macro trim(str)
 {
   var purge
   var start
@@ -692,4 +692,28 @@ macro split_by_set(str,set,incl_delim,bufname)
 macro free_split_buf(hbuf)
 {
 	CloseBuf(hbuf)
+}
+
+
+// get the content without comment text.
+// the content is specified by hbuf and a select record.
+// know bug: if the start line is a comment line and not the 1st line of comment, it could be error.
+// for example:
+// line 1/*
+// line 2 hello
+// line 3 */
+// if the start line is line 2, this function could not know hello is a comment.
+macro get_without_comment(hbuf,sel)
+{
+	var ln
+	ln = sel.lnfirst
+	var cont
+	cont = GetBufLine (hbuf,ln)
+	var pos
+	pos = FindStr(cont,"/*")
+	if ( 0 == pos )
+	{
+		
+	}
+	
 }
