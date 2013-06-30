@@ -83,7 +83,7 @@ macro InsHeadNTail2Lines(prefix,suffix)
 }
 
 //insert string "#define "
-macro Define()
+macro ins_define()
 {
 	InsHeadNTail2Lines("#define ","")
 }
@@ -127,7 +127,7 @@ macro Null()
 	InsHeadNTail2Lines("NULL","")
 }
 //insert string "#include "
-macro Include()
+macro ins_include()
 {
 	if ( "python" == GetCurFileType() )
 	{
@@ -138,7 +138,7 @@ macro Include()
 		InsHeadNTail2Lines("#include \"",".h\"")
 	}
 }
-macro IncludeSys()
+macro ins_include_sys()
 {
 	if ( "python" == GetCurFileType() )
 	{
@@ -153,18 +153,18 @@ macro InsTemplate()
 {
 	InsHeadNTail2Lines("template <typename T",">")
 }
-macro InsSpaceAfterCursor()
+macro ins_space_after_cursor()
 {
 	hbuf = GetCurrentBuf()
 	SetBufSelText(hbuf, " ")
 	Cursor_Left
 }
-macro InsReturn()
+macro ins_return()
 {
 	InsHeadNTail2Lines("return ",";")
 }
 
-macro InsCurlyReturn()
+macro ins_curly_return()
 {
 	InsHeadNTail2Lines("{return ",";}")
 }

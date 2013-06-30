@@ -1,4 +1,4 @@
-macro viPlusFindChar()
+macro find_char_in_line()
 {
 	var hwnd;
 	hwnd = GetCurrentWnd()
@@ -29,7 +29,7 @@ macro viPlusFindChar()
 		}
 	}
 }
-macro viPlusFindCharR()
+macro find_char_in_line_r()
 {
 	var hwnd;
 	hwnd = GetCurrentWnd()

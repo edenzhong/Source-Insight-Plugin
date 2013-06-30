@@ -2,7 +2,7 @@
 该模块把一段代码包裹在一对大括号内.这对大括号将会分别在
 这段代码的前后各增加一行,单独放置该大括号
 */
-macro SetBlockParenthesis()
+macro set_blk_parenthesis()
 {
 	hwnd = GetCurrentWnd()
 	if(hnil == hwnd)

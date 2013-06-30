@@ -14,7 +14,7 @@ macro GetClpBrdNum(char)
 //	return nil
 }
 
-macro MulPaste()
+macro mul_paste()
 {
 	hwnd=GetCurrentWnd ()
 	if ( hnil == hwnd )
@@ -98,7 +98,7 @@ macro MulPaste()
 		//msg("ln @ln@")
 	}
 }
-macro MulCopy()
+macro mul_copy()
 {
 	hwnd=GetCurrentWnd ()
 	if ( hnil == hwnd )

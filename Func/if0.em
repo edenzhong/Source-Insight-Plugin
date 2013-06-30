@@ -1,6 +1,6 @@
 
 //set the selected test as comment
-macro SetIf0()
+macro set_if_0()
 {
 	hwnd = GetCurrentWnd()
 	if(hnil == hwnd)
@@ -13,7 +13,7 @@ macro SetIf0()
 	InsBufLine(hbuf,sel.lnLast + 1,"#endif")
 	InsBufLine(hbuf,sel.lnFirst,"#if 0")
 }
-macro SetIf0AndElse()
+macro set_if_0_else()
 {
 	hwnd = GetCurrentWnd()
 	if(hnil == hwnd)
@@ -31,7 +31,7 @@ macro SetIf0AndElse()
 }
 
 //reset the comment to code.
-macro ClrIf0()
+macro clr_if_0()
 {
 	hbuf = GetCurrentBuf()
 	LineCur = GetBufLnCur (hbuf)

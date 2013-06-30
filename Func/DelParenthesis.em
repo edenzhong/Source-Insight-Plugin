@@ -134,7 +134,7 @@ macro Isfirstlnempty(text.ChHead)
 	}
 	return 1;
 }
-macro DelParenthesis()
+macro del_parenthesis()
 {
 	hwnd = GetCurrentWnd()
 	if(hnil == hwnd)
